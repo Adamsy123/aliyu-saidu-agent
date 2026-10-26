@@ -9,33 +9,85 @@ from tools import TOOL_SCHEMAS, call_tool
 load_dotenv()
 
 # ----------------------------------------------------------------------
-# Page setup
+# Page setup & Custom CSS Styling
 # ----------------------------------------------------------------------
 st.set_page_config(
     page_title="ALIYU SAIDU | AI AGENT", page_icon="🏛️", layout="centered"
 )
 
-# ----------------------------------------------------------------------
-# Centered Profile Image & Header
-# ----------------------------------------------------------------------
-col1, col2, col3 = st.columns([1, 1.2, 1])
+# Custom CSS to style the image into a circle, center it, and make text white/clean
+st.markdown(
+    """
+    <style>
+    /* Force main app background/text adjustments if needed */
+    .stApp {
+        background-color: #0E1117;
+    }
+    
+    /* Circular profile picture styling */
+    .profile-img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #3B82F6;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Header text styling */
+    .header-title {
+        text-align: center;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    .header-subtitle {
+        text-align: center;
+        color: #9CA3AF !important;
+        font-weight: 500;
+        font-size: 1.05rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-with col2:
+# ----------------------------------------------------------------------
+# Centered Circular Image & Header
+# ----------------------------------------------------------------------
+import base64
+
+# Function to convert local image to base64 for reliable HTML rendering
+def get_base64_image(image_path):
     try:
-        # Tries to load the profile photo if available in the folder
-        st.image("aliyu_saidu.jpg", width=180)
+        with open(image_path, "rb") as img_file:
+            encoded = base64.b64encode(img_file.read()).decode()
+            return f"data:image/jpeg;base64,{encoded}"
     except Exception:
-        # Fallback placeholder if image file is missing
-        st.info("📷 [Executive Portrait]")
+        return None
 
-st.markdown(
-    "<h1 style='text-align: center; color: #1E3A8A;'>ALIYU SAIDU — AI EXECUTIVE AGENT</h1>", 
-    unsafe_allow_html=True
-)
-st.markdown(
-    "<p style='text-align: center; font-weight: 500; color: #4B5563;'>Public Sector Executive | Strategic Administrator | Health Systems Leader</p>", 
-    unsafe_allow_html=True
-)
+img_base64 = get_base64_image("aliyu_saidu.jpg")
+
+if img_base64:
+    st.markdown(
+        f"""
+        <div class="profile-img-container">
+            <img src="{img_base64}" class="profile-img" alt="Aliyu Saidu">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.info("📷 [Executive Portrait Missing]")
+
+st.markdown("<h1 class='header-title'>ALIYU SAIDU — AI EXECUTIVE AGENT</h1>", unsafe_allow_html=True)
+st.markdown("<p class='header-subtitle'>Public Sector Executive | Strategic Administrator | Health Systems Leader</p>", unsafe_allow_html=True)
 st.markdown("---")
 
 SYSTEM_PROMPT = """You are an official Executive AI Assistant representing Aliyu Saidu.
