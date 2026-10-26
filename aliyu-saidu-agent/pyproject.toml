@@ -1,0 +1,22 @@
+[project]
+name = "aliyu-saidu-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Adamsy123", email = "Adammohammed5000@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "openai>=3.37.0",
+    "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
+    "streamlit>=1.66.1",
+]
+
+[project.scripts]
+aliyu-saidu-agent = "aliyu_saidu_agent:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
