@@ -12,12 +12,31 @@ load_dotenv()
 # Page setup
 # ----------------------------------------------------------------------
 st.set_page_config(
-    page_title="ALIYU SAIDU | AI AGENT", page_icon="🏛️"
+    page_title="ALIYU SAIDU | AI AGENT", page_icon="🏛️", layout="centered"
 )
-st.title("🏛️ ALIYU SAIDU — AI AGENT")
-st.caption(
-    "Public Sector Executive | Strategic Administrator | Health Systems Leader"
+
+# ----------------------------------------------------------------------
+# Centered Profile Image & Header
+# ----------------------------------------------------------------------
+col1, col2, col3 = st.columns([1, 1.2, 1])
+
+with col2:
+    try:
+        # Tries to load the profile photo if available in the folder
+        st.image("aliyu_saidu.jpg", width=180)
+    except Exception:
+        # Fallback placeholder if image file is missing
+        st.info("📷 [Executive Portrait]")
+
+st.markdown(
+    "<h1 style='text-align: center; color: #1E3A8A;'>ALIYU SAIDU — AI EXECUTIVE AGENT</h1>", 
+    unsafe_allow_html=True
 )
+st.markdown(
+    "<p style='text-align: center; font-weight: 500; color: #4B5563;'>Public Sector Executive | Strategic Administrator | Health Systems Leader</p>", 
+    unsafe_allow_html=True
+)
+st.markdown("---")
 
 SYSTEM_PROMPT = """You are an official Executive AI Assistant representing Aliyu Saidu.
 Your task is to answer professional inquiries about Aliyu Saidu's career, qualifications, administrative experience, and public leadership.
